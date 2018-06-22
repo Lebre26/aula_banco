@@ -1,201 +1,95 @@
 <?php
-	
-	//Faz a conexão com o banco de dados
-    require 'banco.php';
- 	$pdo = Banco::conectar();
- 	//Fim da conexão
-
- 	//Verifica a existência de uma sessão, caso haja, redireciona para o dashboard
- 	
-    session_start();
- 	error_reporting(0);
- 	$var = $_SESSION['nome'];
- 	$var2 = $_SESSION['id'];
-
- 	if($var != null && $var2 != null){
-
- 		header('Location: http://localhost/aula_banco/');
-       	exit;
- 	}
-
- 	//Fim da verificação
-
- 	//Inicia o post do formulário de login
-    if(!empty($_POST))
-    {
-
-    	//Captura os dados fornecidos ao post
-    	$email = $_POST['email'];
-    	$senha = hash('sha256', $_POST['senha']);
-    	//Fim da captura
-
-    	//Cria uma query para consultar o banco de dados com os dados fornecidos recuperados nas variáveis
-       	$select = $pdo->query(" SELECT * FROM `usuarios` WHERE `email` LIKE '$email' AND `senha` LIKE '$senha' ");
-       	
-       	//Captura o resultado da query
-       	$result = $select->fetch(PDO::FETCH_OBJ);
-       	//Fim da query e fim da captura
-	
-       	//Testa se a query teve um resultado diferente de nulo
-       if(!empty($result)){
-
-       		//Caso o resultado for diferente de nulo, inicia uma sessão e redireciona para o dashboard
-			
-            session_start();
-       		$_SESSION['nome'] = $result->nome;
-       		$_SESSION['id'] = $result->id;
-       		
-            header('Location: http://localhost/aula_banco/');
-       		
-            exit;
-			
-       }else{
-
-       		//Caso o resultado for igual a nulo, retorna um erro
-       		echo '<html lang="en">
-					<head>
-					    <meta charset="utf-8">
-					    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-					    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-					    <title>UNIF</title>
-					    <style type="text/css">
-					    	.error{color:#a94442 !important;}
-					    </style>
-
-					    <!-- Styles -->
-					    <link href="css/app.css" rel="stylesheet">
-					</head>';
-       		echo '<div class="container">
-       				<div class="row">
-       					<div class="col-md-8 col-md-offset-2">
-		       				<div class="alert alert-danger alert-dismissable">
-								  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								  <strong>Erro! </strong>E-mail ou senha fornecidos são incorretos ou inexistentes.
-								</div>
-		       				</div>
-		       			</div>
-       			 </div>';
-
-       			 exit;
-
-       }
-
-       //Fim do teste do resultado da query
-
-
-    }
+include_once('scripts/login-script.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Hi5Dash - HTML5 Admin Template By Jewel Theme</title>
+  <meta name="description" content="Hi5Dash - HTML5 Admin Template By Jewel Theme">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>UNIF</title>
-    <style type="text/css">
-    	.error{color:#a94442 !important;}
-    </style>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
+  <!-- Import Template Icons CSS Files -->
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/simple-line-icons.css">
+  <link rel="stylesheet" href="assets/css/linea-basic.css">
+
+  <!-- Import Custom Country Select CSS Files -->
+  <link rel="stylesheet" href="assets/css/countrySelect.min.css">
+
+  <!-- Import Perfect ScrollBar CSS Files -->
+  <link rel="stylesheet" href="assets/css/perfect-scrollbar.css">   
+
+  <!-- Import Bootstrap CSS File -->
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css"> 
+
+  <!-- Import Template's CSS Files -->
+  <link rel="stylesheet" href="assets/css/presets.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/pages/pages.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+
+
 </head>
+
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="/">
-                        UNIF
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                                                    <li><a href="/">Login</a></li>
-                            <li><a href="/">Cadastro</a></li>
-                                            </ul>
-                </div>
+  <div class="admin-login d-flex align-content-center flex-wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-md-3">
+          <div class="login-content bg-light">
+            <div class="login-logo pt-4 pb-3 background-bg" data-image-src="images/we.jpg">
+              <a href="index.html">
+                <img class="align-content" src="images/logo2.png" alt="">
+              </a>
+              <p class="mt-2 mb-0 color-white">Responsive Bootstrap 4 Admin Template</p>
             </div>
-        </nav>
-
-        <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="post" action="login.php">
-                     
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">E-Mail</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
-
-                                                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="col-md-4 control-label">Senha</label>
-
-                            <div class="col-md-6">
-                                <input id="senha" type="password" class="form-control" name="senha" required>
-
-                                                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" > Lembrar-me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="#">
-                                    Esqueceu sua senha?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+            <div class="login-form">
+              <form method="post" action="login.php">
+                <div class="form-group">
+                  <lSource Sans Pro>Email address</lSource Sans Pro>
+                  <input type="email" name="email" class="form-control" placeholder="Email">
                 </div>
+                <div class="form-group">
+                  <lSource Sans Pro>Password</lSource Sans Pro>
+                  <input type="password" name="senha" class="form-control" placeholder="Password">
+                </div>
+                <div class="checkbox">
+                  <lSource Sans Pro>
+                    <input type="checkbox"> Remember Me
+                  </lSource Sans Pro>
+                  <lSource Sans Pro class="pull-right">
+                    <a href="#">Forgotten Password?</a>
+                  </lSource Sans Pro>
+
+                </div>
+                <button type="submit" class="btn btn-primary btn-flat mb-3 mt-3">Sign in</button>
+
+                <div class="register-link mt-1 text-center">
+                  <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-    </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="js/app.js"></script>
+
+
+  <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+  <script src="assets/js/plugins.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
 </body>
 </html>
 
