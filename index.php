@@ -1,5 +1,6 @@
-  
-
+<?php
+include_once('scripts/dashboard-control-session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -181,7 +182,7 @@
             <li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
             <li><a href="#"><i class="fa fa-envelope"></i> Inbox</a></li>
             <li><a href="#"><i class="fa fa-gears"></i> Account Setting</a></li>
-            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+            <li><a href="scripts/logout.php"><i class="fa fa-power-off"></i> Logout</a></li>
           </ul>
         </div>
 
