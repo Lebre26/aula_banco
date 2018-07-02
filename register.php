@@ -1,150 +1,89 @@
 <?php
-	
-	//Faz a conexão com o banco de dados
-    require 'banco.php';
- 	$pdo = Banco::conectar();
- 	//Fim da conexão
-
- 	//Verifica a existência de uma sessão, caso haja, redireciona para o dashboard
- 	session_start();
- 	error_reporting(0);
- 	$var = $_SESSION['nome'];
- 	$var2 = $_SESSION['id'];
-
- 	if($var != null && $var2 != null){
-
-        header('Location: http://localhost/aula_banco');
-       	exit;
- 	}
- 	
- 	 if(!empty($_POST)){
-
-        
-        
-		//Capturar os dados fornecidos nos inputs
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $senha = hash('sha256',$_POST['senha']);
-		
-            
-            //Compara os dados capturados nos imputs com o banco e se estiverem corretos encaminha o usuário para a página de login e desconecta o banco 
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO usuarios (nome, email, senha) VALUES(?,?,?)";
-            $q = $pdo->prepare($sql);
-            $q->execute(array($nome,$email,$senha));
-            Banco::desconectar();
-            header("Location: login.php");
-        }
-    
+include_once('scripts/register-script.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Hi5Dash - HTML5 Admin Template By Jewel Theme</title>
+  <meta name="description" content="Hi5Dash - HTML5 Admin Template By Jewel Theme">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>UNIF</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
+  <!-- Import Template Icons CSS Files -->
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/simple-line-icons.css">
+  <link rel="stylesheet" href="assets/css/linea-basic.css">
+
+  <!-- Import Custom Country Select CSS Files -->
+  <link rel="stylesheet" href="assets/css/countrySelect.min.css">
+
+  <!-- Import Perfect ScrollBar CSS Files -->
+  <link rel="stylesheet" href="assets/css/perfect-scrollbar.css">   
+
+  <!-- Import Bootstrap CSS File -->
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css"> 
+
+  <!-- Import Template's CSS Files -->
+  <link rel="stylesheet" href="assets/css/presets.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/pages/pages.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+
+
 </head>
+
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="http://localhost:8000">
-                        UNIF
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                                                    <li><a href="#">Login</a></li>
-                            <li><a href="#">Cadastrar</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Cadastrar</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="register.php">
-                       
-                        <div class="form-group">
-                            <label for="name" class="col-md-4 control-label">Nome</label>
-
-                            <div class="col-md-6">
-                                <input id="nome" type="text" class="form-control" name="nome" value="" required autofocus>
-
-                                                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">E-Mail </label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="" required>
-
-                                                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="col-md-4 control-label">Senha</label>
-
-                            <div class="col-md-6">
-                                <input id="senha" type="password" class="form-control" name="senha" required>
-
-                                                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirmar Senha</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Cadastrar
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="admin-register d-flex align-content-center flex-wrap">
+    <div class="container">
+      <div class="register-content bg-light">
+        <div class="register-logo pt-4 pb-3 background-bg" data-image-src="images/we.jpg">
+          <a href="index.html">
+            <img class="align-content" src="images/" alt="">
+          </a>
+          <p class="mt-2 mb-0 color-white">.</p>
         </div>
+        <div class="register-form">
+          <form method="POST" action="register.php">
+            <div class="form-group">
+              <lSource Sans Pro>Nome</lSource Sans Pro>
+              <input type="nome" class="form-control" name="nome" placeholder="Digite seu Nome">
+            </div>
+            <div class="form-group">
+              <lSource Sans Pro>E-mail</lSource Sans Pro>
+              <input type="email" class="form-control" name="email" placeholder="Digite seu E-mail">
+            </div>
+            <div class="form-group">
+              <lSource Sans Pro>Senha</lSource Sans Pro>
+              <input type="password" class="form-control" name="senha" placeholder="Informe uma senha">
+            </div>
+            <div class="checkbox">
+              <lSource Sans Pro>
+                <input type="checkbox"> Concordo com os termos e política
+              </lSource Sans Pro>
+            </div>
+            <button type="submit" class="btn btn-primary btn-flat mb-3 mt-3">CADASTRAR</button>
+
+            <div class="register-link mt-1 text-center">
+              <p>Já tem conta ? <a href="#"> Cadastra-se</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
-</div>
-<!-- Scripts -->
-<script src="js/app.js"></script>
+  </div>
+
+
+  <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+  <script src="assets/js/plugins.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
 </body>
 </html>

@@ -47,33 +47,33 @@ include_once('scripts/login-script.php');
           <div class="login-content bg-light">
             <div class="login-logo pt-4 pb-3 background-bg" data-image-src="images/we.jpg">
               <a href="index.html">
-                <img class="align-content" src="images/logo2.png" alt="">
+                <img class="align-content" src="images/" alt="">
               </a>
-              <p class="mt-2 mb-0 color-white">Responsive Bootstrap 4 Admin Template</p>
+              <p class="mt-2 mb-0 color-white">.</p>
             </div>
             <div class="login-form">
               <form method="post" action="login.php">
                 <div class="form-group">
-                  <lSource Sans Pro>Email address</lSource Sans Pro>
-                  <input type="email" name="email" class="form-control" placeholder="Email">
+                  <lSource Sans Pro>E-mail</lSource Sans Pro>
+                  <input type="email" name="email" class="form-control" placeholder="Informe seu E-mail">
                 </div>
                 <div class="form-group">
-                  <lSource Sans Pro>Password</lSource Sans Pro>
-                  <input type="password" name="senha" class="form-control" placeholder="Password">
+                  <lSource Sans Pro>Senha</lSource Sans Pro>
+                  <input type="password" name="senha" class="form-control" placeholder="Informe sua Senha">
                 </div>
                 <div class="checkbox">
                   <lSource Sans Pro>
-                    <input type="checkbox"> Remember Me
+                    <input type="checkbox"> Lembre-me
                   </lSource Sans Pro>
                   <lSource Sans Pro class="pull-right">
-                    <a href="#">Forgotten Password?</a>
+                    <a href="#">Esqueceu sua Senha?</a>
                   </lSource Sans Pro>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-flat mb-3 mt-3">Sign in</button>
+                <button type="submit" class="btn btn-primary btn-flat mb-3 mt-3">ACESSAR</button>
 
                 <div class="register-link mt-1 text-center">
-                  <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                  <p>Não tem conta? <a href="register.php"> Cadastra-se</a></p>
                 </div>
               </form>
             </div>
