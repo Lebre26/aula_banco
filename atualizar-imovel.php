@@ -6,7 +6,7 @@ include_once('scripts/dashboard-control-session.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Morada Imóveis - Cadastro de Imóveis</title>
+  <title>Morada Imóveis - Atualizar Imóvel <?php echo $nome ?></title>
   <meta name="description" content="Hi5Dash - HTML5 Admin Template By Jewel Theme">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -246,22 +246,22 @@ include_once('scripts/dashboard-control-session.php');
                 </div><!-- /.corner-content -->
               </div><!-- /.content-head -->
              
-             
-              <form method="post" action="scripts/inserir-imovel-script.php" enctype="multipart/form-data">
+             <?php include_once('scripts/atualizar-imovel-script.php') ?>
+              <form method="post" action="atualizar-imovel.php?id=<?php echo $id ?>" enctype="multipart/form-data">
                 <div class="content-details show">
                   <div class="row">
                     
                     <div class="col-sm-6">
                           <div class="form-group">
                             <label for="company" class=" form-control-label">Nome</label>
-                            <input type="text" id="nome" name="nome" class="form-control">
+                            <input type="text" value="<?php echo $nome ?>" id="nome" name="nome" class="form-control">
                           </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
                               <label for="company" class=" form-control-label">Endereço</label>
-                              <input type="text" id="endereco" name="endereco" class="form-control">
+                              <input type="text" value="<?php echo $endereco ?>" id="endereco" name="endereco" class="form-control">
                         </div>
                     </div>
 
@@ -298,13 +298,12 @@ include_once('scripts/dashboard-control-session.php');
                       <div class="form-group">
                         <label>Dormitório</label>
                         <select name="dormitorio" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
+                          <option value="3" selected="selected">0</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
                           <option value="4">4</option>
                           <option value="5">5</option>
-                          
                         </select>
                       </div><!-- /.form-group -->
                     </div>

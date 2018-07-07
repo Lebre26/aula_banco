@@ -6,7 +6,7 @@ include_once('scripts/dashboard-control-session.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Morada Imóveis - Cadastro de Imóveis</title>
+  <title>Morada Imóveis - Listagem de Imóveis</title>
   <meta name="description" content="Hi5Dash - HTML5 Admin Template By Jewel Theme">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -231,163 +231,62 @@ include_once('scripts/dashboard-control-session.php');
 
     <div class="dashboard-contents">
      <div class="contents-inner">
-     <h2>Cadastro de Imóveis</h2>
+     <h2>Listagem de Imóveis</h2>
 
     <div class="row">
     <div class="col-12">
             <div class="section-content">
               <div class="content-head">
-                <h4 class="content-title">Informações do Imóvel</h4><!-- /.content-title -->
-                <div class="corner-content float-right">
-                  <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
-                  <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
-                  <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
-                  <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
-                </div><!-- /.corner-content -->
+                <h4 class="content-title">Lista de Imóveis</h4><!-- /.content-title --><br />
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Endereço</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Dormitórios</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">Atualizar</th>
+                        <th scope="col">Excluir</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php 
+                            //Faz a conexão com o banco de dados
+
+                            require 'banco.php';
+                            $pdo = Banco::conectar();
+                            //Fim da conexão
+
+                            $sqlImovel = " SELECT * FROM `imoveis` ";
+
+                            //Laço de repetição
+                            foreach($pdo->query($sqlImovel) as $linhaImovel){
+                            
+            
+                        ?>
+                            <tr>
+                                    <th scope="row"><?php echo  $linhaImovel['id']; ?></th>
+                                    <td> <?php echo  $linhaImovel['nome']; ?></td>
+                                    <td><?php echo  $linhaImovel['endereco']; ?></td>
+                                    <td><?php echo  ucfirst($linhaImovel['tipo']); ?></td>
+                                    <td><?php echo  $linhaImovel['dormitorio']; ?></td>
+                                    <td>R$<?php echo  $linhaImovel['preco']; ?>,00</td>
+                                    
+                                    <td><a href="atualizar-imovel.php?id=<?php echo $linhaImovel['id']; ?>"><i class="fa fa-pencil"></i></a></td>
+                                    <td><a href="excluir-imovel.php"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                        
+                        <?php } 
+                        $pdo = Banco::desconectar();
+                        ?>
+                        
+                    </tbody>
+                    </table>
               </div><!-- /.content-head -->
              
-             
-              <form method="post" action="scripts/inserir-imovel-script.php" enctype="multipart/form-data">
-                <div class="content-details show">
-                  <div class="row">
-                    
-                    <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="company" class=" form-control-label">Nome</label>
-                            <input type="text" id="nome" name="nome" class="form-control">
-                          </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                              <label for="company" class=" form-control-label">Endereço</label>
-                              <input type="text" id="endereco" name="endereco" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Tipo</label>
-                        <select name="tipo" class="form-control select2">
-                          <option value="casa" selected="selected">Casa</option>
-                          <option value="apartamento">Apartamento</option>
-                          <option value="ponto_c">Ponto Comercial</option>
-                          <option value="terreno">Terreno</option>
-                          <option value="sitio">Sítio</option>
-                          <option value="chacara">Chácara</option>
-                          
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                              <label for="company" class=" form-control-label">Área</label>
-                              <input type="text" id="area" name="area" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                              <label for="company" class=" form-control-label">Preço</label>
-                              <input type="text" id="preco" name="preco" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Dormitório</label>
-                        <select name="dormitorio" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Sala</label>
-                        <select name="sala" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Cozinha</label>
-                        <select name="cozinha" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Banheiro</label>
-                        <select name="banheiro" class="form-control select2">
-                          <option value="socail" selected="selected">Social</option>
-                          <option value="lavabo">Lavabo</option>
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Lavanderia</label>
-                        <select name="lavanderia" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
-                          <option value="1">1</option>
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Garagem</label>
-                        <select name="garagem" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Quiantal</label>
-                        <select name="quintal" class="form-control select2">
-                          <option value="0" selected="selected">0</option>
-                          <option value="1">1</option>
-                        </select>
-                      </div><!-- /.form-group -->
-                    </div>
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <label>Observações</label>
-                        <textarea name="observacao" id="observacao" rows="4" class="form-control"></textarea>
-                      </div><!-- /.form-group -->
-                    </div>
-
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="fa fa-dot-circle-o"></i> Submit
-                      </button>
-                      
-                    </div>
-                  
-                  </div>
-                </div><!-- /.content-details -->
-              </form>
             </div>
           </div>
     </div>
